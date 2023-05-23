@@ -2,18 +2,12 @@
 Not ready yet...
 
 ## Installtion steps
-- **Try yourself**
+
 ```
-- pip install gTTS
-- conda install -c cogsci pygame
-- apt-get install libasound2-dev
-- conda install -c conda-forge pocketsphinx
+- pip install -r requirements.txt
   ```
 
-**OR**
-
-- **Use Command**
+- **To run server**
 ```
-- conda env create -f environment.yml
-- pip install pygame
+- python3 run.py
 ```
