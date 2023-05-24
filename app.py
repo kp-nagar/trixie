@@ -20,3 +20,12 @@ def speak(text: str):
     except Exception as e:
         logger.error(e)
     return "Done"
+
+@app.get("/stop")
+def stop_speak():
+    try:
+        TrixVoice().trix_voice_stop()
+        logger.info("stop speak task done.")
+    except Exception as e:
+        logger.error(e)
+    return "Done"

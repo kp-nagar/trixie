@@ -36,3 +36,6 @@ class TrixVoice:
         tx.seek(0)
         mixer.music.load(tx, "mp3")
         mixer.music.play()
+
+    def trix_voice_stop(self):
+        mixer.music.stop()
