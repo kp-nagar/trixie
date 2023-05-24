@@ -19,13 +19,16 @@ class TrixVoice:
             tts.write_to_fp(mp3_fp)
             return mp3_fp
 
+        # TODO: Check this later
         # check if input as mp3 file
-        if write_file:
-            # if filename not exist filename=epoch_time
-            if not filename:
-                filename = f'{os.getcwd()}/records/{datetime.datetime.now().timestamp()}.mp3'
-            tts.save(filename)
-            return filename
+        # if write_file:
+        #     # if filename not exist filename=epoch_time
+        #     if not filename:
+        #         path = os.path.dirname(os.path.abspath(__file__))
+        #         print(path)
+        #         filename = "path" + f'/recorded_data/{datetime.datetime.now().timestamp()}.mp3'
+        #     tts.save(filename)
+        #     return filename
 
     # play file/stream
     def trix_voice(self, tx):

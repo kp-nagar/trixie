@@ -9,7 +9,7 @@ app = FastAPI()
 @app.get("/")
 def index():
     try:
-        sound = TrixVoice().trix_in(text="hello how are you")
+        sound = TrixVoice().trix_in(text="hello how are you", write_file=True)
         logger.info(f"strime: {sound}")
         TrixVoice().trix_voice(sound)
         logger.info("said")
