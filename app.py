@@ -8,11 +8,15 @@ app = FastAPI()
 
 @app.get("/")
 def index():
+    return "Trixie is here."
+
+@app.get("/speak")
+def speak(text: str):
     try:
-        sound = TrixVoice().trix_in(text="hello how are you", write_file=True)
+        sound = TrixVoice().trix_in(text=text)
         logger.info(f"strime: {sound}")
         TrixVoice().trix_voice(sound)
-        logger.info("said")
+        logger.info("speak task done.")
     except Exception as e:
-            logger.error(e)
-    return "Trixie is here."
+        logger.error(e)
+    return "Done"
