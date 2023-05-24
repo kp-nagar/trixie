@@ -1,21 +1,17 @@
 import datetime
 import os
 from io import BytesIO
-
 from gtts import gTTS   # TODO: research about another library
-import pygame
+from pygame import mixer
+
+from util.logger import logger
 
 
 class TrixVoice:
-    # initialize pygame for play audio
-    def __init__(self):
-        pygame.init()
-        pygame.mixer.init()
-
     def trix_in(self, text, write_file=False, filename=None):
-        from app import app
         # convert text to speech
-        tts = gTTS(text=text, lang=app.config['LANG'])
+        tts = gTTS(text=text, lang='en')
+        logger.info(f"tts: {tts}")
 
         # check if input as byte stream
         if not write_file:
@@ -33,8 +29,7 @@ class TrixVoice:
 
     # play file/stream
     def trix_voice(self, tx):
-        pygame.mixer.music.load(tx, 'mp3')
-        pygame.mixer.music.play()
-        # this is stupid this if busy something.
-        while pygame.mixer.music.get_busy():
-            pygame.time.Clock().tick(10)
+        mixer.init()
+        tx.seek(0)
+        mixer.music.load(tx, "mp3")
+        mixer.music.play()
