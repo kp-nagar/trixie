@@ -7,7 +7,7 @@ from pygame import mixer
 from util.logger import logger
 
 
-class TrixVoice:
+class TrixTextVoice:
     def trix_in(self, text, write_file=False, filename=None):
         # convert text to speech
         tts = gTTS(text=text, lang='en')
@@ -15,8 +15,10 @@ class TrixVoice:
 
         # check if input as byte stream
         if not write_file:
+            logger.info("generating trix sound buffer...")
             mp3_fp = BytesIO()
             tts.write_to_fp(mp3_fp)
+            logger.info("trix sound generated")
             return mp3_fp
 
         # TODO: Check this later
@@ -30,12 +32,25 @@ class TrixVoice:
         #     tts.save(filename)
         #     return filename
 
-    # play file/stream
-    def trix_voice(self, tx):
+
+# play file/stream
+class TrixVoice:
+    def __init__(self) -> None:
         mixer.init()
+        
+    def trix_voice(self, tx):
+        logger.info("loading trix sound...")
         tx.seek(0)
         mixer.music.load(tx, "mp3")
         mixer.music.play()
+        
+    def trix_speaking(self):
+        if mixer.music.get_busy() == True:
+            logger.info("trix speaking")
+            return True
+        else:
+            logger.info("trix not speaking")
+            return False
 
     def trix_voice_stop(self):
         mixer.music.stop()

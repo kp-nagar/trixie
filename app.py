@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from util.logger import logger
-from services.trix_tts.trix_tts import TrixVoice
+from services.trix_tts.trix_tts import TrixTextVoice, TrixVoice
 
 
 app = FastAPI()
@@ -13,8 +13,9 @@ def index():
 @app.get("/speak")
 def speak(text: str):
     try:
-        sound = TrixVoice().trix_in(text=text)
-        logger.info(f"strime: {sound}")
+        logger.info("text: %s" % text)
+        sound = TrixTextVoice().trix_in(text=text)
+        logger.info(f"stream: {sound}")
         TrixVoice().trix_voice(sound)
         logger.info("speak task done.")
     except Exception as e:
@@ -29,3 +30,12 @@ def stop_speak():
     except Exception as e:
         logger.error(e)
     return "Done"
+
+@app.get("/speaking")
+def check_speaking():
+    try:
+        speaking = TrixVoice().trix_speaking()
+        logger.info("stop speak task done.")
+    except Exception as e:
+        logger.error(e)
+    return speaking
