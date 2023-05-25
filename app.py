@@ -1,6 +1,10 @@
 from fastapi import FastAPI
+import asyncio
+
 from util.logger import logger
-from services.trix_tts.trix_tts import TrixTextVoice, TrixVoice
+from services.trix_tts.trix_tts import TrixVoice
+from services.trix_tokenizer import TrixTokenizer
+from services.trix_core import speak_trix
 
 
 app = FastAPI()
@@ -11,12 +15,13 @@ def index():
     return "Trixie is here."
 
 @app.get("/speak")
-def speak(text: str):
+async def speak(text: str):
     try:
         logger.info("text: %s" % text)
-        sound = TrixTextVoice().trix_in(text=text)
-        logger.info(f"stream: {sound}")
-        TrixVoice().trix_voice(sound)
+        texts = TrixTokenizer(text).texts
+        logger.info("total trix texts: %s" % len(texts))
+        tasks = [speak_trix(texts)]
+        await asyncio.gather(*tasks)
         logger.info("speak task done.")
     except Exception as e:
         logger.error(e)
