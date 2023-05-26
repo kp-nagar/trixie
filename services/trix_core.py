@@ -7,4 +7,6 @@ async def speak_trix(texts):
         logger.info(f"trix voice: {i}")
         sound = TrixTextVoice().trix_in(text=tx)
         TrixVoice().trix_voice(sound)
+        while TrixVoice().trix_speaking():
+            continue
     logger.info("all trix voice done.")
