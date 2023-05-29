@@ -1,0 +1,1 @@
+python3 services/trix_stt/trix_stt.py
