@@ -14,6 +14,7 @@ app = FastAPI()
 def index():
     return "Trixie is here."
 
+
 @app.get("/speak")
 async def speak(text: str):
     try:
@@ -29,6 +30,7 @@ async def speak(text: str):
         logger.error(e)
     return "Done"
 
+
 @app.get("/stop")
 def stop_speak():
     try:
@@ -37,6 +39,7 @@ def stop_speak():
     except Exception as e:
         logger.error(e)
     return "Done"
+
 
 @app.get("/speaking")
 def check_speaking():
